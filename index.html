@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JMJ Scientific Consulting</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px;
+        }
+        
+        .nav-dots {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .nav-dot:hover, .nav-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
+        /* Sections */
+        .section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Background image overlay */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+        
+        .bg-image-2 {
+            filter: brightness(0.7);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vh;  /* Use viewport height for width */
+            height: 100vw; /* Use viewport width for height */
+            object-fit: cover;
+            z-index: -2;
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        
+        /* Individual section styles */
+        #home {}
+        #services {}
+        #about {}
+        #contact {}
+        
+        /* Founder image styling */
+        .founder-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .founder-image {
+            width: 280px;
+            height: 380px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 3px solid black; /* Changed to black border */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .founder-text {
+            flex: 1;
+            padding: 0 40px;
+            text-align: left;
+        }
+        
+        /* Content styling */
+        h1 {
+            font-size: 6rem;
+            margin-bottom: 200px;
+            text-shadow: 2px 2px 4px rgba(188, 69, 180, 0.3);
+            color: white;
+            -webkit-text-stroke: 2px rgb(0, 0, 0);
+        }
+
+        h2 {
+            font-size: 5.0rem;
+            margin-bottom: 0px;
+            text-shadow: 2px 2px 4px rgba(188, 69, 180, 0.3);
+            color: white;
+            -webkit-text-stroke: 2px rgb(0, 0, 0);
+        }
+
+        h3 {
+            font-size: 4.0rem;
+            margin-bottom: 115px;
+            text-shadow: 2px 2px 4px rgba(188, 69, 180, 0.3);
+            color: white;
+            -webkit-text-stroke: 2px rgb(0, 0, 0);
+        }
+
+        h4 {
+            font-size: 6rem;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(188, 69, 180, 0.3);
+            color: white;
+            -webkit-text-stroke: 2px rgb(0, 0, 0);
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 100px;
+            color: rgb(255, 255, 255);
+            text-shadow: 
+                1px 1px 2px rgba(0, 0, 0, 0.8),
+                -1px -1px 2px rgba(0, 0, 0, 0.8),
+                1px -1px 2px rgba(0, 0, 0, 0.8),
+                -1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        
+        p1 {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 100px;
+            color: rgb(255, 255, 255);
+            text-shadow: 
+                1.5px 1.5px 2.5px rgba(0, 0, 0, 1),
+                -1.5px -1.5px 2.5px rgba(0, 0, 0, 1),
+                1.5px -1.5px 2.5px rgba(0, 0, 0, 1),
+                -1.5px 1.5px 2.5px rgba(0, 0, 0, 1);
+        }
+
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: white;
+            color: #333;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Three columns layout - IMPROVED */
+        .columns-container {
+            display: flex;
+            width: 100%;
+            height: 70vh;
+            gap: 20px;
+            padding: 0 20px;
+            align-items: flex-start;
+        }
+
+        .column {
+            flex: 1;
+            height: 100%;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow-y: auto;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Staggered column heights */
+        .column:nth-child(1) { /* Left column */
+            margin-top: 60px;
+        }
+
+        .column:nth-child(2) { /* Middle column */
+            margin-top: 0;
+        }
+
+        .column:nth-child(3) { /* Right column */
+            margin-top: 60px;
+        }
+
+        .column h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            -webkit-text-stroke: 1.5px black;
+            text-shadow: 2px 2px 6px rgba(188, 69, 180, 0.4);
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .column p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            max-width: none;
+            text-align: left;
+            font-weight: normal;
+            -webkit-text-stroke: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .column ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .column li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.5;
+            -webkit-text-stroke: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .column li:before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Email section */
+        .email-section {
+            margin: 20px 0;
+        }
+
+        .email-display {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 15px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            display: inline-block;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            -webkit-text-stroke: 0.5px black;
+        }
+
+        .email-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            margin: 10px;
+        }
+
+        .email-btn:hover {
+            background-color: white;
+            color: #333;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Arrow indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        .arrow {
+            width: 30px;
+            height: 30px;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+            transform: rotate(45deg);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 100px;
+            }
+
+            h2 {
+                font-size: 2.0rem;
+                margin-bottom: 100px;
+            }
+
+            h3 {
+                font-size: 2.0rem;
+                margin-bottom: 100px;
+            }
+
+            p {
+                font-size: 1rem;
+                margin-bottom: 50px;
+            }
+            
+            p1 {
+                font-size: 1rem;
+                margin-bottom: 50px;
+            }
+
+            .columns-container {
+                flex-direction: column;
+                height: auto;
+                gap: 15px;
+            }
+            
+            .column {
+                padding: 20px;
+                height: auto;
+                margin-top: 0 !important;
+            }
+            
+            .column h3 {
+                font-size: 1.6rem;
+            }
+            
+            .founder-image {
+                width: 250px;
+                height: 350px;
+            }
+
+            .nav-container {
+                padding: 10px;
+            }
+            
+            .founder-container {
+                flex-direction: column;
+            }
+            
+            .founder-text {
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .email-display {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <div class="nav-container">
+        <div class="nav-dots">
+            <a href="#home" class="nav-dot"></a>
+            <a href="#services" class="nav-dot"></a>
+            <a href="#about" class="nav-dot"></a>
+            <a href="#contact" class="nav-dot"></a>
+        </div>
+    </div>
+    
+    <!-- Sections -->
+    <section id="home" class="section">
+        <img src="1st.jpg" alt="Double-Helix Structure of DNA" class="bg-image">
+        <div class="bg-overlay"></div>
+       
+        <h1>JMJ Scientific Consulting LLC</h1>
+        <p>. . .</p>
+        <a href="#services" class="btn">Continue</a>
+        <div class="scroll-indicator">
+            <div class="arrow"></div>
+        </div>
+    </section>
+    
+    <section id="services" class="section">
+        <img src="2nd.jpg" alt="Microscopic Cellular Organelles" class="bg-image-2">
+        <div class="bg-overlay"></div>
+
+        <div class="columns-container">
+            <div class="column">
+                <h3>EXPERIENCE</h3>
+                <p>With over 20 years of experience in drug and diagnostic development, biomarker discovery, clinical trials, and companion diagnostic strategies, I bring a unique perspective shaped by leadership roles at the FDA and in global drug and diagnostics companies. My background spans discovery, clinical trial applications, regulatory processes, and commercialization strategies, ensuring clients receive comprehensive support at every stage of development.</p>
+            </div>
+            
+            <div class="column">
+                <h3>MISSION-DRIVEN AND OUTCOME-BASED</h3>
+                <p>At JMJ, our mission is to drive precision medicine forward.</p>
+                <ul>
+                    <li>Specializing in integrating drug and diagnostic development</li>
+                    <li>Streamlining regulatory submissions</li>
+                    <li>Facilitating strategic partnerships with key opinion leaders worldwide</li>
+                </ul>
+                <p>Whether you are a startup or a global enterprise, I work closely with your team to deliver innovative solutions that advance diagnostic technologies and improve patient outcomes.</p>
+            </div>
+            
+            <div class="column">
+                <h3>INDUSTRY EXPERTISE</h3>
+                <p>JMJ has successfully partnered with biotech, pharmaceutical, and AI-driven diagnostic companies, empowering them with the insights and strategies needed to bring transformative therapies and diagnostics to market. If you are ready to move your program forward with confidence, let's connect and explore how I can help you achieve your goals.</p>
+            </div>
+        </div>
+        
+        <a href="#about" class="btn">Continue</a>
+    </section>
+
+    <section id="about" class="section">
+        <img src="3rd.jpg" alt="Laboratory background" class="bg-image">
+        <div class="bg-overlay"></div>
+        
+        <div class="founder-container">
+            <div class="founder-text">
+                <h2>Dr. Suso Platero </h2>
+                <h3>The Founder</h3>
+                <p>Vice President | Consultant, Strategic Advisor | Biomarkers and Diagnostics | Clinical trials and Commercialization | Drug Development and Diagnostics | Regulatory</p>
+                <a href="#contact" class="btn">Continue</a>
+            </div>
+            <!-- Founder image -->
+            <img src="Platero-Suso.jpg" alt="Suso Platero" class="founder-image">   
+        </div>
+    </section>
+    
+    <section id="contact" class="section">
+        <img src="4th.jpg" alt="DNA Artistic Render" class="bg-image">
+        <div class="bg-overlay"></div>
+        
+        <h4>Contact Us</h4>
+        <p>Are you looking to accelerate your drug development program or navigate the complexities of biomarkers in clinical trials? Do you need a clear strategy for companion diagnostics? I founded JMJ Scientific Consulting LLC to provide expert, actionable guidance to pharmaceutical, biotech, and diagnostic companies, as well as investors and CROs, who face these exact challenges.</p>
+        
+        <div class="email-section">
+            <div class="email-display">susoplatero@gmail.com</div>
+            <a href="mailto:susoplatero@gmail.com" class="email-btn">Email Us</a>
+        </div>
+        
+        <a href="#home" class="btn">Return to Top</a>
+    </section>
+</body>
+</html>
