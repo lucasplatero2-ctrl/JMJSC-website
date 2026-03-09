@@ -187,6 +187,18 @@
             width: 100%;
         }
 
+        .services-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Left | Right */
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Stack on mobile so it doesn't break */
+        @media (max-width: 768px) {
+            .services-split { grid-template-columns: 1fr; }
+        }
+
 
         .services-list {
             list-style: none;
@@ -509,10 +521,19 @@
 
         <h3>Services</h3>
         
-        <div class="services-container">
+        <div class="services-split">
+    
+            <!-- LEFT COLUMN: Original Skills -->
             <ul class="services-list">
-            
+                <li><strong>Biomarker Strategy</strong><br>From Research to Clinical development</li>
+                <li><strong>Diagnostic Development Strategy</strong><br>Specialized knowledge of integrated drug and diagnostic development</li>
+                <li><strong>Companion Diagnostic</strong><br>From Research to Commercialization</li>
+                <li><strong>Regulatory Submission Planning</strong><br>Developing streamlined approaches</li>
+                <li><strong>Strategic Partnerships</strong><br>Facilitating connections with key opinion leaders worldwide</li>
+            </ul>
 
+            <!-- RIGHT COLUMN: New Offerings -->
+            <ul class="services-list">
                 <li><strong>Flagship Strategy Engagement (6–8 weeks)</strong><br>
                     Biomarker Strategy Review / Precision Medicine Blueprint</li>
 
@@ -524,12 +545,12 @@
 
                 <li><strong>Board-Level or Executive Retainer</strong><br>
                     Ongoing strategic advisory</li>
-
+                <div class="callout-box">
+                    If you are ready to move your program forward with confidence, let's connect and explore how we can help you achieve your goals.
+                </div>
             </ul>
             
-            <div class="callout-box">
-                If you are ready to move your program forward with confidence, let's connect and explore how we can help you achieve your goals.
-            </div>
+            
         </div>
         
         <a href="#founder" class="btn">Continue</a>
@@ -593,3 +614,4 @@
     
 </body>
 </html>
+
